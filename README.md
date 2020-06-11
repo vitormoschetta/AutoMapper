@@ -36,8 +36,7 @@
     }
     
     
--Pacote:
-    <PackageReference Include="AutoMapper" Version="9.0.0" />
+-Pacote: PackageReference Include="AutoMapper" Version="9.0.0"
     
 -Startup/ConfigureServices:
 
