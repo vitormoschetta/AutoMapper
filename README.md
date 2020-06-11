@@ -2,7 +2,7 @@
 
 Em projetos MVC as vezes precisamos de ViewModels, que são classes de domínio adaptadas para a visualização, atribuídas a Views Tipadas. 
 
-Quando as diferenças da classe de domínio para a classe view são pequenas, e essas diferenças não necessitam serem salvas no banco ( como exemplo a validação com data annotations ), não se faz necessário criar uma Action ou Controller para tratar dessa ViewModel, basta mapear uma para a outra. 
+Quando as diferenças da classe de domínio para a classe view são pequenas, e essas diferenças não necessitam serem salvas no banco ( como exemplo a validação com data annotations ), não se faz necessário criar uma Action ou Controller para tratar dessa ViewModel, basta mapeá-la da/para a classe de domínio.
 
 Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumida, como implementar o AutoMapper:
 
