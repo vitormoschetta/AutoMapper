@@ -34,3 +34,18 @@
 
         public string Mensagem { get; set; }
     }
+    
+    
+-Pacote:
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    
+-Startup/ConfigureServices:
+
+    var config = new AutoMapper.MapperConfiguration(cfg =>
+    {
+        cfg.CreateMap<ViewModels.UsuarioViewModel, Models.Usuario>();
+        cfg.CreateMap<Models.Usuario, ViewModels.UsuarioViewModel>();
+    });
+    IMapper mapper = config.CreateMapper();
+    services.AddSingleton(mapper);
+
