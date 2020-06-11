@@ -48,11 +48,58 @@
     IMapper mapper = config.CreateMapper();
     services.AddSingleton(mapper);
 
--Controller:
+-Controller/Injection:
 
     private readonly IMapper _mapper;
     public HomeController(IMapper mapper)
     {
         _mapper = mapper;
     }
+    
+-Controller/Index:
+
+    public IActionResult Index(){
+        var listaModel = _context.Usuario.ToList(); 
+        
+        // Convert listModel in listViewModel:
+        var listaviewModel = _mapper.Map<IEnumerable<UsuarioViewModel>>(listaModel); 
+        
+        // Adiciona valor em atributo viewModel não existente em model (mensagem):
+        foreach (var item in listaviewModel){
+            item.Mensagem = "Atributo de outra entidade";
+        }
+        return View(listaviewModel);
+    }
+    
+-View/Index/Type:
+
+    @model IEnumerable<NomeProjeto.ViewModels.UsuarioViewModel>
+    
+
+-Obs: É necessário converter do Modelo/Context para ViewModel, e vice-versa:
+
+-View/Create/Type:
+
+    @model NomeProjeto.ViewModels.UsuarioViewModel
+    
+-Controller/Create/Post:
+    
+    [HttpPost]
+    public IActionResult Create(UsuarioViewModel viewModel)
+    {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(String.Empty, "Erro no preenchimento das informações");
+            return View(viewModel);
+        }
+        
+        // Convert viewModel in Model:
+        var model = _mapper.Map<Usuario>(viewModel);
+        
+        _context.Add(model);
+        _context.SaveChanges();
+        return RedirectToAction("Index");
+    }
+    
+
 
