@@ -62,7 +62,7 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
         _mapper = mapper;
     }
     
--Controller/Index:
+-Controller/Index(Mapear da classe de domínio/context para a viewModel):
 
     public IActionResult Index(){
         var listaModel = _context.Usuario.ToList(); 
@@ -88,7 +88,7 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
 
     @model NomeProjeto.ViewModels.UsuarioViewModel
     
--Controller/Create/Post:
+-Controller/Create/Post(Mapear da viewModel para a classe de domínio):
     
     [HttpPost]
     public IActionResult Create(UsuarioViewModel viewModel)
