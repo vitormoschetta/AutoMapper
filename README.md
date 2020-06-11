@@ -48,3 +48,11 @@
     IMapper mapper = config.CreateMapper();
     services.AddSingleton(mapper);
 
+-Controller:
+
+    private readonly IMapper _mapper;
+    public HomeController(IMapper mapper)
+    {
+        _mapper = mapper;
+    }
+
