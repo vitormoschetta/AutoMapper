@@ -6,8 +6,7 @@ Quando as diferenças da classe de domínio para a classe view são pequenas, e 
 
 Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumida, como implementar o AutoMapper:
 
-##### Models/Usuario:
-
+#### Classe Model Usuario:
     public class Usuario
     {
         public int Id { get; set; }
@@ -18,8 +17,7 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
         public string Altura { get; set; }
     }
 
--ViewModels/UsuarioViewModel:
-
+#### Classe ViewModel UsuarioViewModel:
     public class UsuarioViewModel
     {
         public int Id { get; set; }
@@ -41,11 +39,9 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
         public string Mensagem { get; set; }
     }
     
+#### Pacote a ser adicionado: PackageReference Include="AutoMapper" Version="9.0.0"
     
--Pacote: PackageReference Include="AutoMapper" Version="9.0.0"
-    
--Startup/ConfigureServices:
-
+#### Classe Startup => Método ConfigureServices:
     var config = new AutoMapper.MapperConfiguration(cfg =>
     {
         cfg.CreateMap<ViewModels.UsuarioViewModel, Models.Usuario>();
@@ -54,15 +50,14 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
     IMapper mapper = config.CreateMapper();
     services.AddSingleton(mapper);
 
--Controller/Injection:
-
+#### Injeção de dependência no HomeController:
     private readonly IMapper _mapper;
     public HomeController(IMapper mapper)
     {
         _mapper = mapper;
     }
     
--Controller/Index(Mapear da classe de domínio/context para a viewModel):
+#### Mapear da classe de domínio (Usuario) para a viewModel(UsuarioViewModel):
 
     public IActionResult Index(){
         var listaModel = _context.Usuario.ToList(); 
@@ -77,19 +72,20 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
         return View(listaviewModel);
     }
     
--View/Index/Type:
-
+#### Tipagem da View Index:
     @model IEnumerable<NomeProjeto.ViewModels.UsuarioViewModel>
     
 
--Obs: É necessário converter do Modelo/Context para ViewModel, e vice-versa:
+#### Obs: É necessário converter de Model para ViewModel, e vice-versa:
 
--View/Create/Type:
-
+#### Tipagem da View Create:
     @model NomeProjeto.ViewModels.UsuarioViewModel
     
--Controller/Create/Post(Mapear da viewModel para a classe de domínio):
-    
+#### Mapear de UsuarioViewModel para Usuario:
+No método Index mapeamos a lista de Usuario para uma lista de UsuarioViewModel, para mostrar o modelo otimizado na View.
+Agora, para o cadastro de um novo usuário precisamos converter de UsuarioViewModel para Usuario. Ou seja, o caminho inverso. 
+Se você prestou atenção a classe 'Startup' possui essa configuração. 
+
     [HttpPost]
     public IActionResult Create(UsuarioViewModel viewModel)
     {
