@@ -6,6 +6,11 @@ Quando as diferenças da classe de domínio para a classe view são pequenas, e 
 
 Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumida, como implementar o AutoMapper:
 
+#### Pacote:
+```
+dotnet add package AutoMapper --version 10.0.0
+```
+
 #### Classe Model Usuario:
     public class Usuario
     {
@@ -39,7 +44,6 @@ Além dos arquivos do projeto neste repositório, segue abaixo, de forma resumid
         public string Mensagem { get; set; }
     }
     
-#### Pacote a ser adicionado: PackageReference Include="AutoMapper" Version="9.0.0"
     
 #### Classe Startup => Método ConfigureServices:
     var config = new AutoMapper.MapperConfiguration(cfg =>
